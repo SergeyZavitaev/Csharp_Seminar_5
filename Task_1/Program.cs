@@ -1,39 +1,32 @@
 ﻿//Методы рабочие
 Random rand = new Random();
-
-void PrintMatrixDouble(double[,] table)
+int[] RandomFillArray(int count = 10, int leftRange = -9, int rightRange = 9)
 {
-    for (int i = 0; i < table.GetLength(0); i++)
-    {
-        for (int j = 0; j < table.GetLength(1); j++)
-        {
-            Console.Write(table[i, j] + "\t");
-
-        }
-        Console.WriteLine();
-    }
+    int[] tempArray = new int[count];
+    for (int i = 0; i < tempArray.Length; i++)
+        tempArray[i] = rand.Next(leftRange, rightRange + 1);
+    return tempArray;
+}
+void PrintArray(int[] tempArray)
+{
+    Console.Write("[" + string.Join(", ", tempArray) + "]");
 }
 
-// Задача 47. Задайте двумерный массив размером m×n, 
-//заполненный случайными вещественными числами.
-// m = 3, n = 4.
-// 0,5 7 -2 -0,2
-// 1 -3,3 8 -9,9
-// 8 7,8 -7,1 9
-double RandomDouble(int minNum = 0, int MaxNum = 10, int NumAfterPoint = 3)
+//Метод для домашнего задания
+int countEvenNumbers(int[] tempArray)
 {
-    return Math.Round(rand.Next(minNum, MaxNum) + rand.NextDouble(), NumAfterPoint);
-}
-double[,] FillMatrixDouble(int row = 3, int col = 3,
-    int minNum = -10, int maxNum = 10, int NumAfterPoint = 3)
-{
-    double[,] tempMatrix = new double[row, col];
-    for (int i = 0; i < tempMatrix.GetLength(0); i++)
-        for (int j = 0; j < tempMatrix.GetLength(1); j++)
-            tempMatrix[i, j] = RandomDouble(minNum, maxNum + 1, NumAfterPoint);
-    return tempMatrix;
+    int result = 0;
+    for (int i = 0; i < tempArray.Length; i++)
+        if (tempArray[i] % 2==0)
+            result++;
+    return result;
 }
 
-double[,] array = FillMatrixDouble(3, 4, 4, 9);
-PrintMatrixDouble(array);
-Console.WriteLine();
+//Задача 34: Задайте массив заполненный
+//случайными положительными трёхзначными
+//числами. Напишите программу, которая
+//покажет количество чётных чисел в массиве.
+//[345, 897, 568, 234] -> 2
+int[] array = RandomFillArray(rand.Next(3, 10), 1, 999);
+PrintArray(array);
+Console.Write($" -> {countEvenNumbers(array)}");
